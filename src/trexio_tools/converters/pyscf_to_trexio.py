@@ -137,15 +137,10 @@ def pyscf_to_trexio(
         # PBC info
         ##########################################
         if pbc_flag:
-            if isinstance(mol.a, list):
-                a = np.array(mol.a[0])
-                b = np.array(mol.a[1])
-                c = np.array(mol.a[2])
-            else:
-                hmatrix=np.fromstring(mol.a, dtype=np.float64, sep=' ').reshape((3,3),order='C')
-                a=np.array(hmatrix[0,:])
-                b=np.array(hmatrix[1,:])
-                c=np.array(hmatrix[2,:])
+            hmatrix = mol.lattice_vectors()
+            a = np.array(hmatrix[0,:])
+            b = np.array(hmatrix[1,:])
+            c = np.array(hmatrix[2,:])
 
             k_point = k_vec
             periodic = True
